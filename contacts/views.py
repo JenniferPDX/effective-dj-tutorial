@@ -8,7 +8,7 @@ from contacts.models                import Contact
 from contacts                       import forms
 
 # Create your views here.
-class LoggedInMixin(object):
+class LoggedInMixin( object ):
 
     @method_decorator( login_required )
     def dispatch( self, *args, **kwargs ):
@@ -23,7 +23,7 @@ class ListContactView( LoggedInMixin, ListView ):
 
         return Contact.objects.filter( owner=self.request.user )
     
-class CreateContactView( CreateView ):
+class CreateContactView( LoggedInMixin, CreateView ):
     
     model = Contact
     template_name = 'edit_contact.html'
@@ -39,7 +39,7 @@ class CreateContactView( CreateView ):
 
         return context
 
-class UpdateContactView( UpdateView ):
+class UpdateContactView( LoggedInMixin, UpdateView ):
 
     model = Contact
     template_name = 'edit_contact.html'
@@ -56,7 +56,7 @@ class UpdateContactView( UpdateView ):
 
         return context
         
-class DeleteContactView( DeleteView ):
+class DeleteContactView( LoggedInMixin, DeleteView ):
 
     model = Contact
     template_name = 'delete_contact.html'
@@ -64,12 +64,12 @@ class DeleteContactView( DeleteView ):
     def get_success_url(self):
         return reverse( 'contacts-list' )
         
-class ContactView( DetailView ):
+class ContactView( LoggedInMixin, DetailView ):
 
     model = Contact
     template_name = 'contact.html'
     
-class EditContactAddressView( UpdateView ):
+class EditContactAddressView( LoggedInMixin, UpdateView ):
 
     model = Contact
     template_name = 'edit_addresses.html'
