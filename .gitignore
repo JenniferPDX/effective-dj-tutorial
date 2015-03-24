@@ -1,2 +1,5 @@
 *.pyc
 addressbook/static/bootstrap/
+path_to_dict.py
+output.json
+address.db
