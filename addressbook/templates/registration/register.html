@@ -3,7 +3,21 @@
 {% block content %}
 
 
-<h1>Registration</h1>
+{% block title %}Create a new account{% endblock %}
 
+<!-- 
+Presumably I need to do something along these lines, but what? 
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}"> 
+-->
+
+<form method="post" action="{% url 'django.contrib.auth.views.register' %}">
+{% csrf_token %} <!-- What does this line do? -->
+<table>
+<tr>
+{{ form }}
+</tr>
+</table>
+<input type="submit" value="register" />
+</form>
 
 {% endblock %}
